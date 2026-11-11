@@ -1,28 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using MVVM_SPO.Model;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MVVM_SPO.View.Controls
 {
-    /// <summary>
-    /// Логика взаимодействия для RegControl.xaml
-    /// </summary>
     public partial class RegControl : UserControl
     {
+        public event EventHandler EventAuth;
         public RegControl()
         {
             InitializeComponent();
+            DataContext = this;
+        }
+
+        private RelayCommand exitCommand;
+        public RelayCommand ExitCommand
+        {
+            get
+            {
+                return exitCommand ??
+                  (exitCommand = new RelayCommand(obj =>
+                  {
+                      EventAuth.Invoke(this, EventArgs.Empty);
+                  }));
+            }
+        }
+        private RelayCommand regCommand;
+        public RelayCommand RegCommand
+        {
+            get
+            {
+                return regCommand ??
+                  (regCommand = new RelayCommand(obj =>
+                  {
+                      //todo переход на регистрацию 
+                  }));
+            }
         }
     }
 }
